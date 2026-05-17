@@ -3,21 +3,21 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import Copy from "@/components/Copy/Copy";
-import { asset } from "@/lib/assets";
+import { assetUrl } from "@/lib/assets";
 
 import "./catalog.css";
 
-const images = [
-  asset("/catalog/img1.png"),
-  asset("/catalog/img2.png"),
-  asset("/catalog/img3.png"),
-  asset("/catalog/img4.png"),
-  asset("/catalog/img5.png"),
-  asset("/catalog/img6.png"),
-  asset("/catalog/img7.png"),
-  asset("/catalog/img8.png"),
-  asset("/catalog/img9.png"),
-  asset("/catalog/img10.png"),
+const CATALOG_IMAGE_PATHS = [
+  "/media/catalog/img1.png",
+  "/media/catalog/img2.png",
+  "/media/catalog/img3.png",
+  "/media/catalog/img4.png",
+  "/media/catalog/img5.png",
+  "/media/catalog/img6.png",
+  "/media/catalog/img7.png",
+  "/media/catalog/img8.png",
+  "/media/catalog/img9.png",
+  "/media/catalog/img10.png",
 ];
 
 const catalogParams = {
@@ -87,7 +87,9 @@ function buildCatalogGrid(rows, cols) {
       if (col > 0) excluded.add(grid[row][col - 1]);
       if (row > 0) excluded.add(grid[row - 1][col]);
 
-      const available = images.map((_, i) => i).filter((i) => !excluded.has(i));
+      const available = CATALOG_IMAGE_PATHS.map((_, i) => i).filter(
+        (i) => !excluded.has(i),
+      );
 
       grid[row][col] = available[Math.floor(Math.random() * available.length)];
     }
@@ -96,7 +98,7 @@ function buildCatalogGrid(rows, cols) {
 }
 
 function createImagePlane(row, col, loader, imageIndex) {
-  const src = images[imageIndex];
+  const src = assetUrl(CATALOG_IMAGE_PATHS[imageIndex]);
 
   const catalogRadius = 0.15;
   const shape = createRoundedRectShape(
@@ -117,7 +119,19 @@ function createImagePlane(row, col, loader, imageIndex) {
     catalogUvAttr.setXY(i, u, v);
   }
 
-  const texture = loader.load(src);
+  const texture = loader.load(
+    src,
+    (loaded) => {
+      loaded.minFilter = THREE.LinearFilter;
+      loaded.magFilter = THREE.LinearFilter;
+      loaded.colorSpace = THREE.SRGBColorSpace;
+      loaded.needsUpdate = true;
+    },
+    undefined,
+    (error) => {
+      console.error("[catalog] texture failed:", src, error);
+    },
+  );
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -181,6 +195,7 @@ export default function CatalogPage() {
     catalogRenderer.outputColorSpace = THREE.SRGBColorSpace;
 
     const catalogLoader = new THREE.TextureLoader();
+    catalogLoader.setCrossOrigin("anonymous");
 
     const catalogGrid = buildCatalogGrid(
       catalogParams.rows,

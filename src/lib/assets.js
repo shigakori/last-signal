@@ -9,3 +9,12 @@ export function asset(path) {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `${basePath}${normalized}`;
 }
+
+/**
+ * @param {string} path
+ */
+export function assetUrl(path) {
+  const relative = asset(path);
+  if (typeof window === "undefined") return relative;
+  return new URL(relative, window.location.origin).href;
+}

@@ -21,15 +21,15 @@ const MENU_PRIMARY_LINKS = [
 ];
 
 const MENU_FOOTER_LINKS_LEFT = [
-  { href: "https://www.instagram.com/shigakoriweb", label: "Instagram" },
-  { href: "https://x.com/shigakoriweb", label: "X / Twitter" },
-  { href: "https://discord.com/invite/B8B9MXxuSS", label: "Discord" },
+  { href: "https://www.instagram.com", label: "Instagram" },
+  { href: "https://x.com", label: "X / Twitter" },
+  { href: "https://discord.com", label: "Discord" },
 ];
 
 const MENU_FOOTER_LINKS_RIGHT = [
-  { href: "https://vimeo.com/shigakori", label: "Vimeo" },
-  { href: "https://www.youtube.com/@shigakori", label: "YouTube" },
-  { href: "mailto:contact@shigakori.com", label: "Email" },
+  { href: "https://vimeo.com", label: "Vimeo" },
+  { href: "https://www.youtube.com", label: "YouTube" },
+  { href: "mailto:shigakori@gmail.com", label: "Email" },
 ];
 
 function getMenuClosedClipPath() {
