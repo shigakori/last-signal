@@ -163,6 +163,9 @@ div.pin-spacer:has(> .report-section) {
   width: 100%;
   height: 100%;
   isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, mask-image, -webkit-mask-image;
 }
 
 .report-img::before {
@@ -174,6 +177,8 @@ div.pin-spacer:has(> .report-section) {
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   filter: saturate(var(--media-saturation)) contrast(var(--media-contrast))
     brightness(var(--media-brightness));
 }

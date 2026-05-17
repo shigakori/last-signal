@@ -241,7 +241,10 @@ export default function FieldReportPage() {
             reportSegmentIndex,
             reportLocalProgress,
           );
-          gsap.set(reportLayers[i], { scale: reportZoomScale });
+          gsap.set(reportLayers[i], {
+            scale: reportZoomScale,
+            force3D: true,
+          });
         }
       }
 
@@ -253,7 +256,9 @@ export default function FieldReportPage() {
         start: "top top",
         end: `+=${reportTotalScroll + reportExtraScroll}`,
         pin: true,
-        scrub: 0.6,
+        scrub: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           reportOnScroll(self.progress);
         },
