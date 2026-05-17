@@ -44,6 +44,10 @@ html {
   background-color: var(--bg);
 }
 
+html.is-preloading {
+  overflow: hidden;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);

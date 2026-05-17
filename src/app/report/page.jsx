@@ -113,12 +113,25 @@ export default function FieldReportPage() {
   const reportCompassRef = useRef(null);
 
   useGSAP(
-    () => {
+    async () => {
       const reportSection = reportSectionRef.current;
       const reportCompassSvg = reportCompassRef.current;
       if (!reportSection || !reportCompassSvg) return;
 
       const reportLayers = [...reportSection.querySelectorAll(".report-img")];
+
+      await Promise.all(
+        reportImages.map(
+          ({ src }) =>
+            new Promise((resolve) => {
+              const img = new Image();
+              img.onload = resolve;
+              img.onerror = resolve;
+              img.src = src;
+            }),
+        ),
+      );
+
       const reportWiperHand = reportSection.querySelector(".report-wiper-hand");
       const reportWiperFixed = reportSection.querySelector(
         ".report-wiper-fixed",
@@ -173,11 +186,25 @@ export default function FieldReportPage() {
         reportRingTweenState.angle,
       );
 
+      const reportMaskCache = new Map();
+
       function reportSetMask(el, angle) {
-        const reportMask = `conic-gradient(from ${reportWipeStartAngle}deg, #000 ${angle}deg, transparent ${angle}deg)`;
+        const rounded = Math.round(angle);
+        if (el._reportMaskAngle === rounded) return;
+        el._reportMaskAngle = rounded;
+
+        let reportMask = reportMaskCache.get(rounded);
+        if (!reportMask) {
+          reportMask = `conic-gradient(from ${reportWipeStartAngle}deg, #000 ${rounded}deg, transparent ${rounded}deg)`;
+          reportMaskCache.set(rounded, reportMask);
+        }
         el.style.maskImage = reportMask;
         el.style.webkitMaskImage = reportMask;
       }
+
+      const reportScaleSetters = reportLayers.map((el) =>
+        gsap.quickSetter(el, "scale"),
+      );
 
       function reportGetImageScale(imageIndex, segmentIndex, localProgress) {
         const reportCyclesAhead = segmentIndex - imageIndex;
@@ -241,10 +268,11 @@ export default function FieldReportPage() {
             reportSegmentIndex,
             reportLocalProgress,
           );
-          gsap.set(reportLayers[i], {
-            scale: reportZoomScale,
-            force3D: true,
-          });
+          const roundedScale = Math.round(reportZoomScale * 1000) / 1000;
+          if (reportLayers[i]._reportScale !== roundedScale) {
+            reportLayers[i]._reportScale = roundedScale;
+            reportScaleSetters[i](roundedScale);
+          }
         }
       }
 

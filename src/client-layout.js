@@ -9,6 +9,7 @@ import CinematicAtmosphere from "./components/CinematicAtmosphere/CinematicAtmos
 import HeroTacticalTelemetry from "./components/HeroTacticalTelemetry/HeroTacticalTelemetry";
 import GlitchLinks from "./components/GlitchLinks/GlitchLinks";
 import LenisScrollSync from "./components/LenisScrollSync/LenisScrollSync";
+import ScrollTriggerRefresh from "./components/ScrollTriggerRefresh/ScrollTriggerRefresh";
 import TransitionProvider from "./providers/TransitionProvider";
 
 const MOBILE_BREAKPOINT = 1000;
@@ -26,7 +27,7 @@ const LENIS_SHARED = {
   orientation: "vertical",
   smoothWheel: true,
   syncTouch: true,
-  /** raf через gsap.ticker в LenisScrollSync */
+  /** raf только через gsap.ticker в LenisScrollSync (официальная связка с GSAP) */
   autoRaf: false,
 };
 
@@ -68,6 +69,7 @@ export default function ClientLayout({ children }) {
     <TransitionProvider>
       <ReactLenis root options={lenisOptions}>
         <LenisScrollSync />
+        <ScrollTriggerRefresh />
         <div className="page" ref={pageRef}>
           <CinematicAtmosphere />
           <HeroTacticalTelemetry />

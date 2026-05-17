@@ -88,19 +88,21 @@ export default function HeroTacticalTelemetry() {
         <span className="site-telemetry__k">Z</span>
         <span className="site-telemetry__v">{formatSignedPx(scrollPx)}</span>
         <span className="site-telemetry__u">px</span>
-        <span className="site-telemetry__sep">·</span>
-        <span className="site-telemetry__k">WIN</span>
-        <span className="site-telemetry__v">{formatWinPct(scrollPct)}</span>
-        <span className="site-telemetry__u">%</span>
       </span>
-      <span className="site-telemetry__side site-telemetry__side--end">
+
+      <span className="site-telemetry__corner site-telemetry__corner--br">
         <span className="site-telemetry__k">X</span>
         <span className="site-telemetry__v">{padInt(mx, 4)}</span>
         <span className="site-telemetry__u">px</span>
-        <span className="site-telemetry__sep">·</span>
+        <span className="site-telemetry__sep" />
         <span className="site-telemetry__k">Y</span>
         <span className="site-telemetry__v">{padInt(my, 4)}</span>
         <span className="site-telemetry__u">px</span>
+      </span>
+
+      <span className="site-telemetry__corner site-telemetry__corner--bl">
+        <span className="site-telemetry__k">WIN</span>
+        <span className="site-telemetry__v">{formatWinPct(scrollPct)}</span>
       </span>
     </aside>
   );

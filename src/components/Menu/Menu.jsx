@@ -127,7 +127,7 @@ export default function Menu() {
 
     lenis?.start();
     setIsOpen(false);
-  }, [pathname]);
+  }, [pathname, lenis]);
 
   const handleClose = () => {
     if (isOpen) {
