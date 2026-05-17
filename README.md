@@ -85,8 +85,8 @@
 
 ```bash
 # Клонировать репозиторий и перейти в каталог
-git clone <url-репозитория> house-of-epochs
-cd house-of-epochs
+git clone <url-репозитория> last-signal
+cd last-signal
 
 # Установить зависимости
 npm install
@@ -154,7 +154,7 @@ flowchart TB
 ## Структура репозитория
 
 ```
-house-of-epochs/
+last-signal/
 ├── public/                 # Статика (изображения, SVG, аудио и т.д.)
 ├── src/
 │   ├── app/                # App Router: страницы, глобальные стили
