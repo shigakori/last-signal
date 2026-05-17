@@ -1,6 +1,7 @@
 import ClientLayout from "@/client-layout";
 import { metadataFromPageKey, siteConfig } from "@/lib/metadata";
 
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 export const metadata = {

@@ -8,8 +8,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Связывает Lenis и ScrollTrigger.
- * ReactLenis уже крутит lenis.raf (autoRaf) — повторно через gsap.ticker не вызываем.
+ * Официальная связка Lenis + GSAP (без scrollerProxy).
+ * autoRaf в ReactLenis должен быть false — raf только через gsap.ticker.
+ * @see https://github.com/darkroomengineering/lenis#setup
  */
 export default function LenisScrollSync() {
   const lenis = useLenis();
@@ -17,40 +18,21 @@ export default function LenisScrollSync() {
   useEffect(() => {
     if (!lenis) return;
 
-    const scroller = document.documentElement;
-
     const onScroll = () => ScrollTrigger.update();
     lenis.on("scroll", onScroll);
 
-    ScrollTrigger.scrollerProxy(scroller, {
-      scrollTop(value) {
-        if (arguments.length) {
-          lenis.scrollTo(value, { immediate: true });
-        }
-        return lenis.scroll;
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        };
-      },
-      pinType:
-        window.getComputedStyle(document.body).transform !== "none"
-          ? "transform"
-          : "fixed",
-    });
+    const onTick = (time) => {
+      lenis.raf(time * 1000);
+    };
 
-    const onRefresh = () => lenis.resize();
-    ScrollTrigger.addEventListener("refresh", onRefresh);
+    gsap.ticker.add(onTick);
+    gsap.ticker.lagSmoothing(0);
+
     ScrollTrigger.refresh();
 
     return () => {
       lenis.off("scroll", onScroll);
-      ScrollTrigger.removeEventListener("refresh", onRefresh);
-      ScrollTrigger.scrollerProxy(scroller, {});
+      gsap.ticker.remove(onTick);
     };
   }, [lenis]);
 

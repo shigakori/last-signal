@@ -256,13 +256,15 @@ export default function FieldReportPage() {
         start: "top top",
         end: `+=${reportTotalScroll + reportExtraScroll}`,
         pin: true,
-        scrub: true,
+        scrub: 0.5,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           reportOnScroll(self.progress);
         },
       });
+
+      reportOnScroll(reportScrollTrigger.progress);
 
       return () => {
         reportScrollTrigger.kill();

@@ -26,6 +26,8 @@ const LENIS_SHARED = {
   orientation: "vertical",
   smoothWheel: true,
   syncTouch: true,
+  /** raf через gsap.ticker в LenisScrollSync */
+  autoRaf: false,
 };
 
 const LENIS_MOBILE = {
