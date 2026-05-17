@@ -1,0 +1,181 @@
+/* Shared sci-fi HUD primitives */
+
+.hud-panel {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 350ms ease,
+    background-color 350ms ease,
+    box-shadow 350ms ease;
+}
+
+.hud-panel::before,
+.hud-panel::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hud-panel::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid var(--border-strong);
+  border-left: 1px solid var(--border-strong);
+}
+
+.hud-panel::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid var(--border-strong);
+  border-right: 1px solid var(--border-strong);
+}
+
+.hud-label {
+  font-family: "DMMono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hud-label::before {
+  content: "[ ";
+  color: var(--faint);
+}
+
+.hud-label::after {
+  content: " ]";
+  color: var(--faint);
+}
+
+.hud-button {
+  --hud-btn-bg: rgba(8, 8, 8, 0.55);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--hud-btn-bg);
+  color: var(--muted);
+  font-family: "DMMono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 350ms ease,
+    border-color 350ms ease,
+    background-color 350ms ease,
+    box-shadow 350ms ease,
+    transform 350ms ease;
+}
+
+.hud-button::before,
+.hud-button::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 350ms ease;
+}
+
+.hud-button::before {
+  top: 3px;
+  left: 3px;
+  border-top: 1px solid var(--border-strong);
+  border-left: 1px solid var(--border-strong);
+}
+
+.hud-button::after {
+  bottom: 3px;
+  right: 3px;
+  border-bottom: 1px solid var(--border-strong);
+  border-right: 1px solid var(--border-strong);
+}
+
+.hud-button:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: rgba(18, 18, 18, 0.75);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+.hud-button:hover::before,
+.hud-button:hover::after {
+  opacity: 1;
+}
+
+.corner-frame {
+  position: relative;
+}
+
+.corner-frame::before,
+.corner-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.corner-frame::before {
+  background:
+    linear-gradient(var(--border-strong), var(--border-strong)) top left / 24px 1px
+      no-repeat,
+    linear-gradient(var(--border-strong), var(--border-strong)) top left / 1px 24px
+      no-repeat,
+    linear-gradient(var(--border-strong), var(--border-strong)) top right / 24px 1px
+      no-repeat,
+    linear-gradient(var(--border-strong), var(--border-strong)) top right / 1px 24px
+      no-repeat;
+}
+
+.corner-frame::after {
+  background:
+    linear-gradient(var(--border-strong), var(--border-strong)) bottom left / 24px 1px
+      no-repeat,
+    linear-gradient(var(--border-strong), var(--border-strong)) bottom left / 1px 24px
+      no-repeat,
+    linear-gradient(var(--border-strong), var(--border-strong)) bottom right / 24px 1px
+      no-repeat,
+    linear-gradient(var(--border-strong), var(--border-strong)) bottom right / 1px 24px
+      no-repeat;
+}
+
+.vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse 85% 75% at 50% 45%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.55) 72%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+}
+
+.grain-overlay {
+  position: relative;
+}
+
+.grain-overlay > * {
+  position: relative;
+  z-index: 1;
+}

@@ -1,0 +1,92 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  padding: 0.75rem;
+  background-color: var(--bg);
+}
+
+.hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.85)),
+    radial-gradient(
+      ellipse 90% 80% at 50% 40%,
+      transparent 25%,
+      rgba(0, 0, 0, 0.5) 70%,
+      rgba(0, 0, 0, 0.92) 100%
+    );
+  z-index: 1;
+}
+
+.hero-img::before {
+  content: "SECTOR 03 · SIGNAL ACTIVE";
+  position: absolute;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "DMMono", ui-monospace, monospace;
+  font-size: clamp(0.55rem, 1.2vw, 0.68rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint);
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.hero .container {
+  display: flex;
+  align-items: flex-end;
+  z-index: 2;
+}
+
+.hero-header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text);
+  z-index: 2;
+}
+
+.hero-header h1 {
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.65);
+}
+
+.hero-header .subheader {
+  color: var(--muted);
+}
+
+@media (min-width: 1000px) {
+  .hero-header h1 {
+    font-size: clamp(7.5rem, 15vw, 15rem);
+  }
+
+  .hero-header .subheader {
+    font-size: clamp(4rem, 5vw, 5rem);
+    transform: translateX(-5rem) translateY(0.5rem);
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-img::before {
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+  }
+}

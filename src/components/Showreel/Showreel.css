@@ -1,0 +1,129 @@
+.showreel {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--bg-soft);
+}
+
+.showreel > .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.showreel-header {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.95), transparent);
+  border-top: 1px solid var(--border);
+  will-change: transform;
+  z-index: 2;
+}
+
+.showreel-header-word {
+  font-family: "Palace", serif;
+  font-size: clamp(4rem, 16vw, 13rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+#showreel-header-1 {
+  transform: translateY(-52.5%);
+}
+
+#showreel-header-2 {
+  transform: translateY(-45%);
+}
+
+#showreel-header-3 {
+  transform: translateY(-30%);
+}
+
+#showreel-header-4 {
+  transform: translateY(0%);
+}
+
+#showreel-header-1.end-state,
+#showreel-header-2.end-state,
+#showreel-header-3.end-state,
+#showreel-header-4.end-state {
+  top: 0;
+  bottom: unset;
+  transform: translateY(0%);
+}
+
+.showreel-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 25%;
+  height: 500px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.showreel-visual img {
+  position: absolute;
+}
+
+.showreel-visual--compact {
+  width: 75%;
+}
+
+.showreel-visual.end-state {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.showreel-marquee-container {
+  position: relative;
+  width: 100%;
+  height: max-content;
+  padding: 0.75rem;
+  color: var(--text);
+  z-index: 2;
+}
+
+.showreel-marquee {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--panel);
+  text-align: center;
+}
+
+.showreel-marquee-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.showreel-marquee-track p {
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: var(--muted);
+}
